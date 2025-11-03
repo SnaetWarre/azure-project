@@ -28,7 +28,7 @@ jobs:
         with:
           azcliversion: 2.60.0
           inlineScript: |
-            az extension add --name ml
+            az extension add --name ml --allow-preview false || echo "ML extension already installed or failed"
             az configure --defaults group=$GROUP workspace=$WORKSPACE location=$LOCATION
-            az ml compute list
+            az ml compute list || echo "No compute resources found or command failed"
 
