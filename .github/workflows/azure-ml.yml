@@ -7,8 +7,8 @@ on:
       - main
 
 env:
-  GROUP: mlops
-  WORKSPACE: mlops-workspace
+  GROUP: azure-ai
+  WORKSPACE: snaet-warre-ai
   LOCATION: westeurope
 
 jobs:
