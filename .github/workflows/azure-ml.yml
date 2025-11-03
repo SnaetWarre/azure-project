@@ -1,0 +1,34 @@
+name: Azure ML Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  GROUP: mlops
+  WORKSPACE: mlops-workspace
+  LOCATION: westeurope
+
+jobs:
+  azure-ml-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code repository
+        uses: actions/checkout@v4
+      
+      - name: Azure Login
+        uses: Azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Azure test - Get Compute
+        uses: Azure/CLI@v2.1.0
+        with:
+          azcliversion: 2.64.0
+          inlineScript: |
+            az extension add --name ml
+            az configure --defaults group=$GROUP workspace=$WORKSPACE location=$LOCATION
+            az ml compute list
+
